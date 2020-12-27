@@ -1,2 +1,2 @@
 # sonoff-python-basic
-Under onstruction 🚧
+Under construction 🚧
