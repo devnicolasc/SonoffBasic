@@ -1,14 +1,12 @@
 from aiohttp import ClientSession, WSMsgType, ClientConnectorError, \
     WSMessage, ClientWebSocketResponse
 import requests
-import asyncio
 import base64
 import hashlib
 import hmac
 import json
 import time
 import datetime
-import pytz
 
 
 class Sonoff:
@@ -59,7 +57,7 @@ class Sonoff:
             d = {'name': i['name'],
                 'deviceid': i['deviceid'],
                 'status': i['params']['switch'],
-                # 'onlineTime': i['onlineTime'],
+                # 'onlineTime': i['onlineTime'], TODO format as YYYY-MM-DD HH:MM:SS with tz
                 # 'offlineTime': i['offlineTime'
                 }
             devices.append(d)
@@ -84,5 +82,4 @@ class Sonoff:
         r = requests.post(self.baseurl + 'api/user/device/status',data=json.dumps(payload),headers={'Authorization': self.auth})
         if r.json()['error'] == 0:
             print(f'deviceid: {deviceid} status successfully changed to {new_status}')
-
 
