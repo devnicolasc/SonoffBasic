@@ -1,5 +1,5 @@
-# sonoff-python-basic
-Itead Sonoff is a smart wifi switch to control electronics power supply. sonoff-python-basic allows to control sonoff switch via the cloud, with a very basic features. It was designed like this as a package tool for other projects. 
+# SonoffBasic
+Itead Sonoff is a smart wifi switch to control electronics power supply. SonoffBasic allows to control sonoff switch via the cloud, with a very basic features.
 
 ### ⚠️ Project was tested on sonoff basic only. Other devices will be tested and adjust in the future. 
 ## requirements
@@ -16,7 +16,7 @@ available params (all values in string format):
     * region (optional) default *'us'*
     * timezone (optional) default *'US/Pacific'*
     ```python
-    >>> from sonoff_python_-_basic import Sonoff
+    >>> from SonoffBasic import Sonoff
     >>> sonoff = Sonoff(username='my_name@example.com',
                         password='my_pass',
                         timezone='US/Pacific',
