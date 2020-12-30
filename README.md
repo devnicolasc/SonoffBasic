@@ -16,8 +16,8 @@ available params (all values in string format):
     * region (optional) default *'us'*
     * timezone (optional) default *'US/Pacific'*
     ```python
-    >>> from SonoffBasic import Sonoff
-    >>> sonoff = Sonoff(username='my_name@example.com',
+    >>> from SonoffBasic import sonoff
+    >>> sonoff = sonoff.Sonoff(username='my_name@example.com',
                         password='my_pass',
                         timezone='US/Pacific',
                         region='us')
@@ -26,10 +26,8 @@ available params (all values in string format):
 
     ```python
     >>> print(sonoff.devices)
-    [   
-        {'name': 'taco', 'deviceid': '1000157898', 'status': 'on'}, 
-        {'name': 'Irrigation', 'deviceid': '100015b23r', 'status': 'off'}
-    ]
+    [{'name': 'taco', 'deviceid': '1000157898', 'status': 'on'}, 
+    {'name': 'Irrigation', 'deviceid': '100015b23r', 'status': 'off'}]
     ```
 * Control the device
     ```python 
