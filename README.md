@@ -1,5 +1,5 @@
 # SonoffBasic
-Itead Sonoff is a smart wifi switch to control electronics power supply. SonoffBasic allows to control sonoff switch via the cloud, with a very basic features.
+SonoffBasic allows to control Sonoff switches via the Ewelink cloud, with a very basic features.
 
 ### ⚠️ Project was tested on sonoff basic only. Other devices will be tested and adjust in the future. 
 ## requirements
@@ -7,6 +7,7 @@ Itead Sonoff is a smart wifi switch to control electronics power supply. SonoffB
 * Sonoff switch must be connected to ewelink app [SONOFF Basic USER GUIDE](http://ewelink.coolkit.cc/?p=126). 
 * Username is email address. 
 * Ewelink account region must be one of **'us'**, **'eu'** or **'cn'**.
+* install SonoffBasic (https://pypi.org/project/SonoffBasic/)
 
 ## How to use ✨
 * Create an instance of Sonoff with ewelink. 
@@ -16,8 +17,8 @@ available params (all values in string format):
     * region (optional) default *'us'*
     * timezone (optional) default *'US/Pacific'*
     ```python
-    >>> from SonoffBasic import sonoff
-    >>> sonoff = sonoff.Sonoff(username='my_name@example.com',
+    >>> from SonoffBasic.sonoff import Sonoff
+    >>> sonoff = Sonoff(username='my_name@example.com',
                         password='my_pass',
                         timezone='US/Pacific',
                         region='us')
