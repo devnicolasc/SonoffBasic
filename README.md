@@ -1,7 +1,7 @@
 # SonoffBasic
 SonoffBasic allows to control Sonoff switches via the Ewelink cloud, with a very basic features.
 
-### ⚠️ Project was tested on sonoff basic only. Other devices will be tested and adjust in the future. 
+⚠️ Project was tested on sonoff basic only. Other devices will be tested and adjust in the future. 
 ## requirements
 
 * Sonoff switch must be connected to ewelink app [SONOFF Basic USER GUIDE](http://ewelink.coolkit.cc/?p=126). 
