@@ -33,8 +33,9 @@ available params (all values in string format):
 * Control the device
     ```python 
     >>> sonoff.change_device_status(deviceid = '1000157898',
-                                    outletid = 0,
-                                    new_status = 'off')            
+                                    new_status = 'off',
+                                    outletid = 0
+                                    )            
     deviceid: 1000157898 status successfully changed to off
     ```
 

@@ -71,7 +71,7 @@ class Sonoff:
                 devices.append(d)
         self.devices = devices
 
-    def change_device_status(self, deviceid: str, outletid: int, new_status: str):
+    def change_device_status(self, deviceid: str, new_status: str, outletid: int = 0):
         self.status = [stat.get('status') for stat in self.devices if stat.get('deviceid') == deviceid and stat.get('outletid') == outletid][0] 
         if new_status == self.status:
             print(f'device is already {new_status}')
