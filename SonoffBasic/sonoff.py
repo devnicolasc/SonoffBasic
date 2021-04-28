@@ -6,6 +6,7 @@ import hmac
 import json
 import time
 
+
 class Sonoff:
     def __init__(self, username: str, password: str, timezone: str='US/Pacific', region: str='us'):
         self.username = username
@@ -95,8 +96,6 @@ class Sonoff:
             'nonce': str(self.ts)
             }
 
-        print(payload)
         r = requests.post(self.baseurl + 'api/user/device/status', data=json.dumps(payload), headers={'Authorization': self.auth})
-        print(r.json())
         if r.json()['error'] == 0:
             print(f'deviceid: {deviceid} status successfully changed to {new_status}')
