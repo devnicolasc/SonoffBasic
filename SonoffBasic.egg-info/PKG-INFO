@@ -1,0 +1,56 @@
+Metadata-Version: 2.1
+Name: SonoffBasic
+Version: 0.0.1
+Summary: basic package to control sonoff switches
+Home-page: https://github.com/devnicolasc/SonoffBasic
+Author: Nicolas Golovaty
+Author-email: nicolascho2@gmail.com
+License: UNKNOWN
+Description: # SonoffBasic
+        Itead Sonoff is a smart wifi switch to control electronics power supply. SonoffBasic allows to control sonoff switch via the cloud, with a very basic features.
+        
+        ### ⚠️ Project was tested on sonoff basic only. Other devices will be tested and adjust in the future. 
+        ## requirements
+        
+        * Sonoff switch must be connected to ewelink app [SONOFF Basic USER GUIDE](http://ewelink.coolkit.cc/?p=126). 
+        * Username is email address. 
+        * Ewelink account region must be one of **'us'**, **'eu'** or **'cn'**.
+        
+        ## How to use ✨
+        * Create an instance of Sonoff with ewelink. 
+        available params (all values in string format):
+            * username - email address (required) 
+            * password (required)
+            * region (optional) default *'us'*
+            * timezone (optional) default *'US/Pacific'*
+            ```python
+            >>> from SonoffBasic import sonoff
+            >>> sonoff = sonoff.Sonoff(username='my_name@example.com',
+                                password='my_pass',
+                                timezone='US/Pacific',
+                                region='us')
+            ```
+        * Search the required device
+        
+            ```python
+            >>> print(sonoff.devices)
+            [{'name': 'taco', 'deviceid': '1000157898', 'status': 'on'}, 
+            {'name': 'Irrigation', 'deviceid': '100015b23r', 'status': 'off'}]
+            ```
+        * Control the device
+            ```python 
+            >>> sonoff.change_device_status(statusid = '1000157898',
+                                            new_status = 'off')            
+            deviceid: 1000157898 status successfully changed to off
+            ```
+        
+        ### Special Thanks
+        Thanks to [@AlexxIT](https://github.com/AlexxIT).
+        cloud connection to [eWeLink](https://www.ewelink.cc/en/) was inspired by [SonoffLAN](https://github.com/AlexxIT/SonoffLAN) project.
+        
+Platform: UNKNOWN
+Classifier: Programming Language :: Python :: 3
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: OS Independent
+Requires-Python: >=3.6
+Description-Content-Type: text/markdown
