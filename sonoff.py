@@ -1,16 +1,13 @@
-from aiohttp import ClientSession, WSMsgType, ClientConnectorError, \
-    WSMessage, ClientWebSocketResponse
+from aiohttp import ClientSession, WSMsgType, ClientConnectorError, WSMessage, ClientWebSocketResponse
 import requests
 import base64
 import hashlib
 import hmac
 import json
 import time
-import datetime
-
 
 class Sonoff:
-    def __init__(self, username:str, password:str, timezone:str='US/Pacific' , region:str='us'):
+    def __init__(self, username: str, password: str, timezone: str='US/Pacific', region: str='us'):
         self.username = username
         self.password = password
         self.region = region
@@ -23,8 +20,7 @@ class Sonoff:
         self.login()
         self.lang = 'en'
         self.devices()
-        
-    
+   
     def login(self):
         payload = {
             'appid': self.appid,
@@ -35,13 +31,12 @@ class Sonoff:
             'password': self.password
         }
         hex_dig = hmac.new(self.appsecret.encode(),
-                                json.dumps(payload).encode(),
-                                digestmod=hashlib.sha256).digest()
+                           json.dumps(payload).encode(),
+                           digestmod=hashlib.sha256).digest()
         auth = "Sign " + base64.b64encode(hex_dig).decode()
-        r = requests.post(self.baseurl + 'api/user/login', json=payload,headers={'Authorization': auth}).json()
+        r = requests.post(self.baseurl + 'api/user/login', json=payload, headers={'Authorization': auth}).json()
         self.token = r['at']
         self.auth = "Bearer " + r['at']
-
 
     def devices(self):
         payload = {
@@ -51,35 +46,57 @@ class Sonoff:
             'version': self.version,
             'nonce': str(self.ts) 
             }
-        r = requests.get(self.baseurl + 'api/user/device',params=payload,headers={'Authorization': self.auth})
+        r = requests.get(self.baseurl + 'api/user/device', params=payload, headers={'Authorization': self.auth})
         devices = []
         for i in r.json()['devicelist']:
-            d = {'name': i['name'],
-                'deviceid': i['deviceid'],
-                'status': i['params']['switch'],
-                # 'onlineTime': i['onlineTime'], TODO format as YYYY-MM-DD HH:MM:SS with tz
-                # 'offlineTime': i['offlineTime'
-                }
-            devices.append(d)
+            if 'switches' in i['params']:
+                for switch in i['params']['switches']:
+                    d = {'name': i['name'],
+                         'deviceid': i['deviceid'],
+                         'outletid': switch['outlet'],
+                         'status': switch['switch'],
+                    # 'onlineTime': i['onlineTime'], TODO format as YYYY-MM-DD HH:MM:SS with tz
+                    # 'offlineTime': i['offlineTime'
+                         }
+                    devices.append(d)
+
+            else: #Single switch devices
+                d = {'name': i['name'],
+                     'deviceid': i['deviceid'],
+                     'outletid': 0,
+                     'status': i['params']['switch'],
+                    # 'onlineTime': i['onlineTime'], TODO format as YYYY-MM-DD HH:MM:SS with tz
+                    # 'offlineTime': i['offlineTime'
+                    }
+                devices.append(d)
         self.devices = devices
-        print(devices)
 
-
-    def change_device_status(self, deviceid:str, new_status:str):
-        self.status = [stat.get('status') for stat in self.devices if stat.get('deviceid') == deviceid][0]
+    def change_device_status(self, deviceid: str, new_status: str, outletid: int = 0):
+        self.status = [stat.get('status') for stat in self.devices if stat.get('deviceid') == deviceid and stat.get('outletid') == outletid][0] 
         if new_status == self.status:
-            print (f'device is already {new_status}')
+            print(f'device is already {new_status}')
             return
+
+        if outletid != 0:
+            params = {'switches': deviceid['params']['switches']}
+            params['switches'][outletid]['switch'] = new_status
+
+        else:
+            params = {'switch': new_status }
+
         payload = {
+            'action': 'update',
             'deviceid': deviceid,
-            'params': {'switch':new_status},
+            'params': params,
             'appid': self.appid,
             'lang': self.lang,
             'ts': self.token,
             'version': self.version,
-            'nonce': str(self.ts) 
+            'nonce': str(self.ts)
             }
-        r = requests.post(self.baseurl + 'api/user/device/status',data=json.dumps(payload),headers={'Authorization': self.auth})
+
+        print(payload)
+        r = requests.post(self.baseurl + 'api/user/device/status', data=json.dumps(payload), headers={'Authorization': self.auth})
+        print(r.json())
         if r.json()['error'] == 0:
             print(f'deviceid: {deviceid} status successfully changed to {new_status}')
-

@@ -27,13 +27,15 @@ available params (all values in string format):
 
     ```python
     >>> print(sonoff.devices)
-    [{'name': 'taco', 'deviceid': '1000157898', 'status': 'on'}, 
-    {'name': 'Irrigation', 'deviceid': '100015b23r', 'status': 'off'}]
+    [{'name': 'taco', 'deviceid': '1000157898', 'outletid': 0, 'status': 'on'}, 
+    {'name': 'Irrigation', 'deviceid': '100015b23r', 'outletid': 0, 'status': 'off'}]
     ```
 * Control the device
     ```python 
-    >>> sonoff.change_device_status(statusid = '1000157898',
-                                    new_status = 'off')            
+    >>> sonoff.change_device_status(deviceid = '1000157898',
+                                    new_status = 'off',
+                                    outletid = 0
+                                    )            
     deviceid: 1000157898 status successfully changed to off
     ```
 
