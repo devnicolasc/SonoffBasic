@@ -9,7 +9,7 @@ with open("requirements.txt", "r", encoding="utf-8") as r:
 
 setuptools.setup(
     name="SonoffBasic", # Replace with your own username
-    version="0.0.1",
+    version="0.0.2",
     author="Nicolas Golovaty",
     author_email="nicolascho2@gmail.com",
     description="basic package to control sonoff switches",
