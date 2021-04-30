@@ -1,9 +1,0 @@
-README.md
-setup.py
-SonoffBasic/__init__.py
-SonoffBasic/sonoff.py
-SonoffBasic.egg-info/PKG-INFO
-SonoffBasic.egg-info/SOURCES.txt
-SonoffBasic.egg-info/dependency_links.txt
-SonoffBasic.egg-info/requires.txt
-SonoffBasic.egg-info/top_level.txt
